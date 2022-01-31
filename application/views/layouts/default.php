@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>
-            Title
+        <?php echo $title; ?>
         </title>
     </head>
 

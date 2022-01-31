@@ -2,6 +2,8 @@
 
 namespace application\core;
 
+use application\core\View;
+
 class Router
 {
     protected $routes = []; //новый массив с ключами
@@ -43,12 +45,11 @@ class Router
                     $controller = new $path($this->params); //если все прошло ОК, то создаю экземпляр класса и передаю в него параметры с экшном и контроллером
                     $controller->$action(); //и передаю в контроллер экшн
                 } else {
-                    echo ('Экшн ' . $action . ' не найден');
+                    View::errorCode(404);
                 }
-                
             } else {
-                echo ('Класс ' . $path . ' не найден');
+                View::errorCode(404);
             }
-        } else echo 'маршрута нет';
+        } else View::errorCode(404);
     }
 }

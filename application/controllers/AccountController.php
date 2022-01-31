@@ -10,11 +10,12 @@ class AccountController extends Controller
 
     public function loginAction()
     {
-        echo 'LOGIN';
+        $this->view->redirect('/');
+        $this->view->render('Вход');
     }
 
     public function registerAction()
     {
-        echo 'REG';
+        $this->view->render('Регистрация');
     }
 }
