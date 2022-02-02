@@ -13,6 +13,9 @@ class MainController extends Controller
     public function indexAction()
     {
         $db = new Db;
+
+        $form ='';
+        
         $data = $db -> row('SELECT name FROM users WHERE id=2');
         debug($data);
         //$this->view->render('MAIN');
