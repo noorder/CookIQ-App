@@ -14,9 +14,11 @@ class MainController extends Controller
     {
         $db = new Db;
 
-        $form ='';
+        $params = [
+            'id' => 2,
+        ];
         
-        $data = $db -> row('SELECT name FROM users WHERE id=2');
+        $data = $db -> column('SELECT name FROM users WHERE id= :id', $params);
         debug($data);
         //$this->view->render('MAIN');
     }
