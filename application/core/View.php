@@ -20,9 +20,11 @@ class View
 
     public function render($title, $vars = [])
     {
-        if (file_exists('application/views/' . $this->path . '.php')) {
+        extract($vars);
+        $path = 'application/views/' . $this->path . '.php';
+        if (file_exists($path)) {
             ob_start();
-            require 'application/views/' . $this->path . '.php';
+            require $path;
             $content = ob_get_clean();
             require 'application/views/layouts/' . $this->layout . '.php';
         }
@@ -33,7 +35,7 @@ class View
         http_response_code($code);
         $path = 'application/views/errors/' . $code . '.php';
         if (file_exists($path)) {
-            require $path;  
+            require $path;
         }
         exit;
     }
@@ -43,5 +45,16 @@ class View
     {
         header('location: ' . $url);
         exit;
+    }
+
+    public function message($status, $message)
+    {
+        exit(json_encode(['status' => $status, 'message' => $message]));
+    }
+
+
+    public function location($url)
+    {
+        exit(json_encode(['url' => $url]));
     }
 }
