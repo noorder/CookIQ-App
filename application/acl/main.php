@@ -2,7 +2,7 @@
 return [
     'all' => [
         'index',
-        'adout',
+        'about',
         'contact',
         'post',
     ],

@@ -34,11 +34,11 @@ abstract class Controller
         $this->acl = require 'application/acl/' . $this->route['controller'] . '.php';
         if ($this->isAcl('all')) {
             return true;
-        } elseif (isset($_SESSIN['authorize']['id']) and $this->isAcl('authorize')) {
+        } elseif (isset($_SESSION['authorize']['id']) and $this->isAcl('authorize')) {
             return true;
-        } elseif (!isset($_SESSIN['guest']['id']) and $this->isAcl('guest')) {
+        } elseif (!isset($_SESSION['guest']['id']) and $this->isAcl('guest')) {
             return true;
-        } elseif (isset($_SESSIN['admin']['id']) and $this->isAcl('admin')) {
+        } elseif (isset($_SESSION['admin']) and $this->isAcl('admin')) {
             return true;
         }
         return false;

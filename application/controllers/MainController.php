@@ -21,6 +21,9 @@ class MainController extends Controller
     public function contactAction()
     {
         $this->view->render('Контакты');
+        if (!empty($_POST)) {
+            $this->view->message('success', 'форма работает');
+        }
     }
 
     public function postAction()
