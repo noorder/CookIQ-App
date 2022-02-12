@@ -8,23 +8,26 @@ use application\core\Controller;
 class AdminController extends Controller
 {
 
-    public function indexAction()
+    public function loginAction()
     {
-        $this->view->render('Главная страница'); 
+        $this->view->render('Вход');
     }
 
-    public function aboutAction()
+    public function addAction()
     {
-        $this->view->render('Обо мне'); 
+        $this->view->render('Добавить пост');
     }
 
-    public function contactAction()
+    public function deleteAction()
     {
-        $this->view->render('Контакты'); 
+        $this->view->render('Удаление поста');
     }
 
-    public function postAction()
+    public function logoutAction()
     {
-        $this->view->render('Пост'); 
+        $this->view->render('Выход');
     }
+
+    
+
 }

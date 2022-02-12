@@ -3,7 +3,7 @@
 
 return [
     //MainController
-
+    
     '' => [
         'controller' => 'main',
         'action' => 'index',
@@ -25,10 +25,8 @@ return [
     ],
 
 
-    
     //AdminController
-
-    'login' =>[
+    'login' => [
         'controller' => 'admin',
         'action' => 'login',
     ],
