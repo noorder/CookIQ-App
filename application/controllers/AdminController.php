@@ -5,7 +5,7 @@ namespace application\controllers;
 
 use application\core\Controller;
 
-class MainController extends Controller
+class AdminController extends Controller
 {
 
     public function indexAction()
