@@ -22,7 +22,7 @@ class MainController extends Controller
     {
         if (!empty($_POST)) {
             if(!$this->model->contactValidate($_POST)){
-                $this->view->message('ERROR', 'error');
+                $this->view->message('ERROR', $this->model->error);
             }
             $this->view->message('success - ', $_POST['name']);
         }
@@ -34,3 +34,5 @@ class MainController extends Controller
         $this->view->render('Пост');
     }
 }
+
+///2 - 12.01
