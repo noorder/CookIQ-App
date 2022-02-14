@@ -6,9 +6,12 @@ use application\core\Model;
 
 class Main extends Model
 {
-    public function getPosts()
+    public function contactValidate($post)
     {
-        $result = $this->db->row('SELECT title, description FROM posts');
-        return $result;     
+        $nameLen = strlen($post['name']);
+        if($nameLen < 1 or  $nameLen > 20) {
+            return false;
+        }
+        return true;
     }
 }

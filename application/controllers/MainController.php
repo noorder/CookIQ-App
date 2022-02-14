@@ -20,10 +20,13 @@ class MainController extends Controller
 
     public function contactAction()
     {
-        $this->view->render('Контакты');
         if (!empty($_POST)) {
-            $this->view->message('success', 'форма работает');
+            if(!$this->model->contactValidate($_POST)){
+                $this->view->message('ERROR', 'error');
+            }
+            $this->view->message('success - ', $_POST['name']);
         }
+        $this->view->render('Контакты');
     }
 
     public function postAction()
