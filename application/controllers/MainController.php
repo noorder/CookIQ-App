@@ -10,7 +10,7 @@ class MainController extends Controller
 
     public function indexAction()
     {
-        $this->view->render('Главная страница');
+        $this->view->render('Главная страница'); 
     }
 
     public function aboutAction()
@@ -21,13 +21,18 @@ class MainController extends Controller
     public function contactAction()
     {
         if (!empty($_POST)) {
-            if(!$this->model->contactValidate($_POST)){
+            if (!$this->model->contactValidate($_POST)) {
                 $this->view->message('ERROR', $this->model->error);
             }
-            $this->view->message('success - ', $_POST['name']);
+            mail($_POST['email'], 'Сообщение из блока', $_POST['email'], $_POST['text']);
+            $this->view->message('success - ', 'сообщение отправлено');
         }
         $this->view->render('Контакты');
     }
+
+
+
+
 
     public function postAction()
     {
