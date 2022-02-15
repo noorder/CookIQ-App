@@ -7,9 +7,9 @@ use application\core\Model;
 
 class Main extends Model
 {
-    
-public $error; 
-//вывод  ошибок пользователю
+
+    public $error;
+    //вывод  ошибок пользователю
 
     public function contactValidate($post)
     {
