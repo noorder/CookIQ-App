@@ -11,11 +11,22 @@ class AdminController extends Controller
     public function __construct($route)
     {
         parent::__construct($route);
-        $this->view->layout = 'admin'; 
+        $this->view->layout = 'admin';
     }
 
     public function loginAction()
     {
+        if(isset($_SESSION['admin'])){
+            
+            $this->view->redirect('admin/add');
+        }
+        if (!empty($_POST)) {
+            if (!$this->model->loginValidate($_POST)) {
+                $this->view->message('ERROR', $this->model->error);
+            }
+            $_SESSION['admin'] = true;
+            $this->view->location('admin/add');
+        }
         $this->view->render('Вход');
     }
 
@@ -29,16 +40,19 @@ class AdminController extends Controller
         $this->view->render('Удаление поста');
     }
 
-      public function editAction()
+    public function editAction()
     {
         $this->view->render('Редактирование поста');
     }
 
     public function logoutAction()
     {
-        $this->view->render('Выход');
+        unset($_SESSION['admin']);
+        $this->view->redirect('admin/login');        
     }
 
-    
-
+    public function postsAction()
+    {
+        $this->view->render('Посты');
+    }
 }
