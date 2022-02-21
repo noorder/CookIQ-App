@@ -19,15 +19,25 @@ class Router
 
     public function add($route, $params)
     {
-        $route = '#^' . $route . '$#'; //поготовка к формату preg_match
-        $this->routes[$route] = $params; //готовлю массив с ключами с регуляркой и цепляю значения контроллера и экшена    
+        $route = preg_replace('/{([a-z]+):([^\}]+)}/', '(?P<\1>\2)', $route);
+        $route = '#^' . $route . '$#';
+        $this->routes[$route] = $params;
     }
 
-    public function match() //проверка существования массива(маршрута)
+
+    public function match()
     {
         $url = trim($_SERVER['REQUEST_URI'], '/');
-        foreach ($this->routes as $route => $params) { //в подготовленном массиве routes проверяем есть ли запрашиваемый в GET маршрут с контроллера и экшена  
-            if (preg_match($route, $url, $matches)) { //если нашли то.. (PS/ $matches это дополнительные жлементы типа id)
+        foreach ($this->routes as $route => $params) {
+            if (preg_match($route, $url, $matches)) {
+                foreach ($matches as $key => $match) {
+                    if (is_string($key)) {
+                        if (is_numeric($match)) {
+                            $match = (int) $match;
+                        }
+                        $params[$key] = $match;
+                    }
+                }
                 $this->params = $params;
                 return true;
             }

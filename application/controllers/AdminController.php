@@ -56,6 +56,7 @@ class AdminController extends Controller
 
     public function deleteAction()
     {
+        debug($this->route['id']);
         $this->view->render('Удаление поста');
     }
 
@@ -74,4 +75,4 @@ class AdminController extends Controller
 }
 
 
-///////////#4 00
+///////////#4 00    
