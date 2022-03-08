@@ -10,7 +10,7 @@ class MainController extends Controller
 
     public function indexAction()
     {
-        $this->view->render('Главная страница'); 
+        $this->view->render('Главная страница');
     }
 
     public function aboutAction()

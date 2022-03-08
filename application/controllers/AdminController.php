@@ -30,16 +30,21 @@ class AdminController extends Controller
         $this->view->render('Вход');
     }
 
+
+
     public function addAction()
     {
         if (!empty($_POST)) {
             if (!$this->model->postValidate($_POST, 'add')) {
                 $this->view->message('ERROR', $this->model->error);
             }
-            $this->view->message('success', 'OK');
+            $id = $this->model->postAdd($_POST);
+            $this->view->message('success', 'id: '.$id);
         }
         $this->view->render('Добавить пост');
     }
+
+
 
     public function editAction()
     {
@@ -75,4 +80,4 @@ class AdminController extends Controller
 }
 
 
-///////////#4 00    
+///////////#4 11:33    

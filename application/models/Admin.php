@@ -26,7 +26,7 @@ class Admin extends Model
         $nameLen = iconv_strlen($post['name']);
         $descriptionLen = iconv_strlen($post['description']);
         $textLen = iconv_strlen($post['text']);
-        
+
         if ($nameLen < 3 or  $nameLen > 20) {
             $this->error = 'Ошибка названия(3-20)';
             return false;
@@ -37,10 +37,21 @@ class Admin extends Model
             $this->error = 'Ошибка текста(3-2000)';
             return false;
         }
-        if (empty($_FILES['img']['tmp_name']) and $type == 'add') {
-            $this->error = 'Ошибка фото';
-            return false;
-        }
+        //  if (empty($_FILES['img']['tmp_name']) and $type == 'add') {
+        //        $this->error = 'Ошибка фото';
+        //       return false;
+        //    }
         return true;
+    }
+
+    public function postAdd($post)
+    {
+        $params = [
+            'description' => $post['description'],
+            'name' => $post['name'],
+            'text' => $post['text'],
+        ];
+        $this->db->query('INSERT INTO posts (name, description, text) VALUES (:name, :description, :text)', $params);
+        return $this->db->lastInsertId();
     }
 }
