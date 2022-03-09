@@ -4,6 +4,7 @@
 namespace application\controllers;
 
 use application\core\Controller;
+use application\core\View;
 
 class AdminController extends Controller
 {
@@ -39,7 +40,12 @@ class AdminController extends Controller
                 $this->view->message('ERROR', $this->model->error);
             }
             $id = $this->model->postAdd($_POST);
-            $this->view->message('success', 'id: '.$id);
+            if (!$id) {
+                $this->view->message('error', 'Ощибка загрузки картинок');
+            }
+
+            $this->model->postUploadImage($_FILES['img']['tmp_name'], $id);
+            $this->view->message('success', 'id: ' . $id);
         }
         $this->view->render('Добавить пост');
     }
@@ -61,8 +67,11 @@ class AdminController extends Controller
 
     public function deleteAction()
     {
-        debug($this->route['id']);
-        $this->view->render('Удаление поста');
+        if(!$this->model->isPostExists($this->route['id'])){
+            $this->view->errorCode(404);
+        }
+        $this->model->postDelete($this->route['id']);
+        $this->view->redirect('admin/posts');
     }
 
 
@@ -80,4 +89,4 @@ class AdminController extends Controller
 }
 
 
-///////////#4 11:33    
+///////////#5 08:00    
