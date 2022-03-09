@@ -56,6 +56,22 @@ class Admin extends Model
         return $this->db->lastInsertId();
     }
 
+
+    public function postEdit($post, $id)
+    {
+        $params = [
+            'id' => $id,
+            'description' => $post['description'],
+            'name' => $post['name'],
+            'text' => $post['text'],
+        ];
+        $this->db->query('UPDATE posts SET name = :name, description = :description, text = :text WHERE id = :id', $params);
+        return $this->db->lastInsertId();
+    }
+
+
+
+
     public function postUploadImage($path, $id)
     {
         // $img = new Imagick($path);
@@ -81,5 +97,12 @@ class Admin extends Model
         ];
         $this->db->query('DELETE FROM posts WHERE id=:id', $params);
         unlink('public/materials/'.$id.'.jpg');
+    }
+
+    public function postData($id) {
+        $params = [
+            'id' => $id,
+        ];
+        return $this->db->row('SELECT * FROM posts WHERE id = :id', $params);
     }
 }

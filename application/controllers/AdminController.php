@@ -58,15 +58,24 @@ class AdminController extends Controller
             if (!$this->model->postValidate($_POST, 'edit')) {
                 $this->view->message('ERROR', $this->model->error);
             }
-            $this->view->message('success', 'OK');
+            $this->model->postEdit($_POST, $this->route['id']);
+            if($_FILES['img']['tmp_name']) {
+                $this->model->postUploadImage($_FILES['img']['tmp_name'], $this->route['id']);
+            }
+            $this->view->message('success', 'Сохранено');
         }
-        $this->view->render('Редактирование поста');
+        //в массив все данные о посте
+        $vars = [
+            'data' => $this->model->postData($this->route['id'])[0],
+        ];
+        $this->view->render('Редактирование поста', $vars);
     }
 
 
 
     public function deleteAction()
     {
+        //если нет поста при удалении тогда выдаем ошибку
         if(!$this->model->isPostExists($this->route['id'])){
             $this->view->errorCode(404);
         }
