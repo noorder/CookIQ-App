@@ -61,6 +61,11 @@ return [
         'controller' => 'admin',
         'action' => 'posts',
     ],
+
+    'admin/posts' =>[
+        'controller' => 'admin',
+        'action' => 'posts',
+    ],
 ]
 
 ?>

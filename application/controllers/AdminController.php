@@ -4,7 +4,7 @@
 namespace application\controllers;
 
 use application\core\Controller;
-use application\core\View;
+//use application\core\View;
 use application\lib\Pagination;
 use application\models\Main;
 
@@ -56,6 +56,9 @@ class AdminController extends Controller
 
     public function editAction()
     {
+        if(!$this->model->isPostExists($this->route['id'])) {
+            $this->view->errorCode(404);
+        }
         if (!empty($_POST)) {
             if (!$this->model->postValidate($_POST, 'edit')) {
                 $this->view->message('ERROR', $this->model->error);

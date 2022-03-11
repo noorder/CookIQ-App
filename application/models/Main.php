@@ -33,7 +33,7 @@ class Main extends Model
     }  
     
     public function postsList($route) {
-        $max = 1;
+        $max = 2;
         $params = [
             'max' => $max,
             'start' =>((($route['page'] ?? 1) - 1) * $max), //считаем с какого поста стартовать
