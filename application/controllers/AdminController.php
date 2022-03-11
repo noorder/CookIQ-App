@@ -5,6 +5,8 @@ namespace application\controllers;
 
 use application\core\Controller;
 use application\core\View;
+use application\lib\Pagination;
+use application\models\Main;
 
 class AdminController extends Controller
 {
@@ -59,7 +61,7 @@ class AdminController extends Controller
                 $this->view->message('ERROR', $this->model->error);
             }
             $this->model->postEdit($_POST, $this->route['id']);
-            if($_FILES['img']['tmp_name']) {
+            if ($_FILES['img']['tmp_name']) {
                 $this->model->postUploadImage($_FILES['img']['tmp_name'], $this->route['id']);
             }
             $this->view->message('success', 'Сохранено');
@@ -76,7 +78,7 @@ class AdminController extends Controller
     public function deleteAction()
     {
         //если нет поста при удалении тогда выдаем ошибку
-        if(!$this->model->isPostExists($this->route['id'])){
+        if (!$this->model->isPostExists($this->route['id'])) {
             $this->view->errorCode(404);
         }
         $this->model->postDelete($this->route['id']);
@@ -91,9 +93,17 @@ class AdminController extends Controller
         $this->view->redirect('admin/login');
     }
 
+
+    //#6 26:52 разобраться в механизме наследования класса
     public function postsAction()
     {
-        $this->view->render('Посты');
+        $mainModel = new Main; //вытаскиваю из майн модели код пагинатора
+        $pagination = new Pagination($this->route, $mainModel->postsCount());
+        $vars = [
+            'pagination' => $pagination->get(),
+            'list' => $mainModel->postsList($this->route),
+        ];
+        $this->view->render('Посты', $vars);
     }
 }
 

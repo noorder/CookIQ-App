@@ -27,4 +27,18 @@ class Main extends Model
         }
         return true;
     }
+
+    public function postsCount() {
+        return $this->db->column('SELECT COUNT(id) FROM posts');
+    }  
+    
+    public function postsList($route) {
+        $max = 1;
+        $params = [
+            'max' => $max,
+            'start' =>((($route['page'] ?? 1) - 1) * $max), //считаем с какого поста стартовать
+
+        ];
+        return $this->db->row('SELECT * FROM posts ORDER BY id DESC LIMIT :start, :max', $params);
+    }
 }

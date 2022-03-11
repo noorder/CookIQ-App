@@ -8,6 +8,12 @@ return [
         'controller' => 'main',
         'action' => 'index',
     ],
+    
+    'main/index/{page:\d+}' => [
+        'controller' => 'main',
+        'action' => 'index',
+    ],
+
 
     'about' => [
         'controller' => 'main',
@@ -51,7 +57,7 @@ return [
         'action' => 'delete',
     ],
 
-    'admin/posts' =>[
+    'admin/posts/{page:\d+}' =>[
         'controller' => 'admin',
         'action' => 'posts',
     ],

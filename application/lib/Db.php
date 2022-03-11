@@ -21,7 +21,12 @@ class Db
         $statement = $this->db->prepare($sql);
         if (!empty($params)) {
             foreach ($params as $key => $val) {
-                $statement->bindValue(':' . $key, $val);
+                if(is_int($val)) {
+                    $type = PDO::PARAM_INT;
+                } else {
+                    $type = PDO::PARAM_STR;
+                }
+                $statement->bindValue(':' . $key, $val, $type);
             }
         }
         $statement->execute();
